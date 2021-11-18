@@ -4,19 +4,21 @@
 ____
 First build Dockerfile:
 
-`cd server/social_network/`
+`cd server/`
 
-`docker build .`
+`make build`
 
 Then run migrations:
 
-`cd ..`
+`make migrate`
 
-`docker-compose run server python manage.py migrate`
+Optionally create superuser:
+
+`make user`
 
 Run project:
 
-`docker-compose up`
+`make up`
 
 ## Running bot
 

@@ -21,7 +21,6 @@ from posts.serializers import UserSerializer, PostSerializer, LikeSerializer, Li
 class JWTTokenObtain(jwt_views.TokenObtainPairView):
     """adds last action value to user is authentication succeeded."""
     def finalize_response(self, request, response, *args, **kwargs):
-        x = 5
         res = super().finalize_response(request, response, *args, **kwargs)
         if res.status_text == 'OK':
             token = response.data['access']
