@@ -19,6 +19,7 @@ from posts.serializers import UserSerializer, PostSerializer, LikeSerializer, Li
 
 
 class JWTTokenObtain(jwt_views.TokenObtainPairView):
+    """adds last action value to user is authentication succeeded."""
     def finalize_response(self, request, response, *args, **kwargs):
         x = 5
         res = super().finalize_response(request, response, *args, **kwargs)
@@ -48,6 +49,7 @@ class LikeViewSet(CreateModelMixin, DestroyModelMixin, GenericViewSet):
 
     @action(detail=False, http_method_names=('get', ))
     def analytics(self, request):
+        """returns amount of likes per day by user."""
         queryset = Like.objects.filter(user=request.user)
         query_params = request.query_params
         date_from_str = query_params.get('date_from')
@@ -65,6 +67,7 @@ class LikeViewSet(CreateModelMixin, DestroyModelMixin, GenericViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def __parse_string_to_date(self, date):
+        """parses query params to date."""
         try:
             result_date = parser.parse(date).date()
         except TypeError:

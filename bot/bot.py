@@ -8,6 +8,7 @@ from conf import users_amount, max_posts_per_user, max_likes_per_user, SIGNUP_UR
 posts_id = []
 requests_amount = []
 
+
 class User:
     def __init__(self, username):
         self.username = username
@@ -57,12 +58,14 @@ class User:
 
 
 async def tasks_factory(users, task, *args, **kwargs):
+    """awaits list of tasks for user."""
     async with aiohttp.ClientSession() as session:
         tasks = [task(user, *args, **kwargs, session=session) for user in users]
         await asyncio.gather(*tasks)
 
 
 async def chain():
+    """chain of async tasks to be performed."""
     users = [User(i) for i in range(users_amount)]
     await tasks_factory(users, User.signup, signup_url=SIGNUP_URL)
     await tasks_factory(users, User.get_token, login_url=OBTAIN_TOKEN_URL)
