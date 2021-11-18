@@ -137,16 +137,4 @@ REST_FRAMEWORK = {
     ]
 }
 
-JWT_AUTH = {
-    # how long the original token is valid for
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=2),
-    'JWT_VERIFY_EXPIRATION': False,
-    # allow refreshing of tokens
-    'JWT_ALLOW_REFRESH': True,
-
-    # this is the maximum time AFTER the token was issued that
-    # it can be refreshed.  exprired tokens can't be refreshed.
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
-}
-
 AUTH_USER_MODEL = 'posts.MyUser'
